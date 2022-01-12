@@ -109,6 +109,13 @@ func headers(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func Log(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
+		handler.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -116,7 +123,7 @@ func main() {
 	http.HandleFunc("/", serveTemplate)
 
 	log.Println("Listening on :8000...")
-	err := http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(":8000", Log(http.DefaultServeMux))
 	if err != nil {
 		log.Fatal(err)
 	}
