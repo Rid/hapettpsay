@@ -1,0 +1,388 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hape Say! by rid#2535</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css"
+      rel="stylesheet"
+    />
+    <!--Replace with your tailwind.css once created-->
+    <style>
+      .max-h-64 {
+        max-height: 16rem;
+      }
+      /*Quick overrides of the form input as using the CDN version*/
+      .form-input,
+      .form-textarea,
+      .form-select,
+      .form-multiselect {
+        background-color: #edf2f7;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
+    <nav id="header" class="bg-white fixed w-full z-10 top-0 shadow">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between my-4"
+      >
+        <div class="pl-4 md:pl-0">
+          <a
+            class="flex items-center font-medium text-gray-800 text-base xl:text-xl no-underline hover:no-underline"
+            href="#"
+          >
+            <img
+              style="height: 30px; margin-right: 20px; border-radius: 4px"
+              src="/static/img/hapebeast.jpeg"
+            />
+            Hape Say!
+          </a>
+        </div>
+        <a
+          class="flex items-center font-medium text-gray-800 text-base xl:text-xl no-underline hover:no-underline"
+          target="_blank"
+          href="https://github.com/Rid/hapettpsay"
+        >
+          <img
+            style="height: 30px; margin-right: 20px; border-radius: 4px"
+            src="/static/img/github.png"
+          />
+        </a>
+      </div>
+    </nav>
+
+    <!--Container-->
+    <div
+      class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16"
+    >
+      <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
+        <p class="text-base font-bold py-2 lg:pb-6 text-grey-700">Hapes</p>
+        <div class="block lg:hidden sticky inset-0">
+          <button
+            id="menu-toggle"
+            class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-600 appearance-none focus:outline-none"
+          >
+            <svg
+              class="fill-current h-3 float-right"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="w-full sticky inset-0 hidden lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 my-2 lg:my-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20"
+          style="top: 6em"
+          id="menu-content"
+        >
+          <ul class="list-reset py-2 md:py-0">
+			<li
+			class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent"
+		  >
+			<a
+			  href="#how"
+			  class="block pl-4 align-middle text-grey-700 no-underline hover:text-purple-600"
+			>
+			  <span class="pb-1 md:pb-0 text-sm">how to use</span>
+			</a>
+		  </li>
+            {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
+            <li
+              class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent{{if eq $i 0}} font-bold border-purple-600{{end}}"
+            >
+              <a
+                href="#{{$hapeName}}"
+                class="block pl-4 align-middle text-grey-700 no-underline hover:text-purple-600"
+              >
+                <span class="pb-1 md:pb-0 text-sm">{{$hapeName}}</span>
+              </a>
+            </li>
+            {{end}} {{end}}
+            <li
+              class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent"
+            >
+              <a
+                href="#about"
+                class="block pl-4 align-middle text-grey-700 no-underline hover:text-purple-600"
+              >
+                <span class="pb-1 md:pb-0 text-sm">about</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!--Section container-->
+      <section class="w-full lg:w-4/5">
+        <!--Title-->
+        <h1
+          class="flex items-center font-sans font-bold break-normal text-indigo-700 px-2 text-xl mt-12 lg:mt-0 md:text-2xl"
+        >
+          Here's all the hapes
+        </h1>
+
+        <div class="px-2">
+          <p class="pb-2">
+            Just click the copy to clipboard button and paste directly into
+            Discord.
+          </p>
+          <p>
+            If you want to know more about how this was made, check the about
+            section at the bottom.
+          </p>
+        </div>
+
+		<!--divider-->
+        <hr class="bg-gray-300 my-12" />
+
+		<!--Title-->
+        <h2
+          class="font-sans font-bold break-normal text-indigo-700 px-2 pb-8 text-xl"
+		  id="how"
+        >
+          How to use
+        </h2>
+
+		<div class="px-2">
+			<p class="pb-2">
+			  Simply browse to https://www.hape-say.com/&lt;Your message&gt;
+			</p>
+			<p class="pb-2">
+			  If you want to use a specific hape, you can browse to https://www.hape-say.com/&lt;hape name&gt;/&lt;Your message&gt;
+			</p>
+		  </div>
+
+        {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
+        <!--divider-->
+        <hr class="bg-gray-300 my-12" />
+
+        <!--Title-->
+        <h2
+          class="font-sans font-bold break-normal text-indigo-700 px-2 pb-8 text-xl"
+        >
+          {{$hapeName}}
+        </h2>
+
+        <!--Card-->
+        <div
+          id="{{$hapeName}}"
+          class="p-8 mt-6 lg:mt-0 rounded shadow bg-white"
+        >
+          <form>
+            <div class="md:flex mb-6">
+              <code
+                id="{{$hapeName}}-hape"
+                class="block whitespace-pre overflow-x-scroll"
+              >
+{{$hapeSay}}
+              </code>
+            </div>
+
+            <div class="md:flex md:items-center">
+              <button
+                id="{{$hapeName}}-button"
+                class="shadow bg-indigo-700 hover:bg-indigo-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="button"
+              >
+                Copy to clipboard
+              </button>
+            </div>
+          </form>
+        </div>
+        <!--/Card-->
+        {{end}} {{end}}
+
+        <!--divider-->
+        <hr class="bg-gray-300 my-12" />
+
+        <!--Title-->
+        <h2
+          class="font-sans font-bold break-normal text-indigo-700 px-2 pb-8 text-xl"
+        >
+          About this tool
+        </h2>
+
+        <!--Card-->
+        <div id="about" class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+          <p class="pb-4">
+            I created an ASCII art library written in golang for my fellow hapes, it's
+            called hapesay. You can make the hape say anything you want, and it has
+            some cool effects you can apply like rainbow hape, or super hape (it
+            has some crazy animation, check it out).
+          </p>
+          <p class="pb-4">
+            You can try it yourself using Docker, over SSH, or from the binary
+            release.
+          </p>
+          <p class="pb-4">For Docker use the following command:</p>
+
+          <p class="pb-4">
+            <code class="block whitespace-pre overflow-x-scroll">
+              docker run riid/hapesay --aurora Hello hapefam!
+            </code>
+          </p>
+
+          <p class="pb-4">You can get a list of options using -h:</p>
+          <code class="block whitespace-pre overflow-x-scroll">
+            hapesay version 2.0.10, (c) 2022 codehex + Rid Usage: hapesay
+            [-bdgpstwy] [-h] [-e eyes] [-f hapefile] [--random] [-l] [-n] [-T
+            tongue] [-W wrapcolumn] [--bold] [--rainbow] [--aurora] [--super]
+            [message] Original Author: (c) 1999 Tony Monroe
+          </code>
+          <p class="pb-4">
+            I setup an anonymous SSH server which drops a shell straight to
+            hapesay (so unfortunately you cannot execute any other commands!),
+            it’s very secure and has no way of gaining access to your console,
+            so feel free to try it:
+          </p>
+          <code class="block whitespace-pre overflow-x-scroll">
+            echo "Hello hapefam!" | ssh hapesay@hapebeast.appboxes.co -p10134
+          </code>
+          <p class="pb-4">
+            The github link for
+            <a
+              class="underline text-purple-600 hover:no-underline"
+              href="https://github.com/Rid/hapesay"
+              target="_blank"
+              >hapesay is here</a
+            >, and the github link for
+            <a
+              class="underline text-purple-600 hover:no-underline"
+              href="https://github.com/Rid/hapettpsay"
+              target="_blank"
+              >hapettpsay is here</a
+            >, all pull requests are welcome for example documentation, creating
+            new hape characters, bug fixes or feature additions!
+          </p>
+          <p class="pb-4">
+            To create a new hape character, simple use the default.hape from the
+            /hapes folder as a template, put the new file in the /hapes
+            directory and name it example.hape, once the source has been built,
+            you&apos;ll be able to call the new hape using the command:
+          </p>
+          <code class="block whitespace-pre overflow-x-scroll">
+            hapesay -f example Hello hapefam!
+          </code>
+          <p class="pb-4">
+            The webserver version called hapettpsay was built using the hapesay
+            library and the "html/template" &amp; "net/http" go modules.
+          </p>
+        </div>
+        <!--/Card-->
+      </section>
+      <!--/Section container-->
+
+      <!--Back link -->
+      <div
+        class="w-full lg:w-4/5 lg:ml-auto text-base md:text-sm text-gray-600 px-4 py-24 mb-12"
+      >
+        <span class="text-base text-purple-600 font-bold">&lt;</span>
+        <a
+          href="#"
+          class="text-base md:text-sm text-purple-600 font-bold no-underline hover:underline"
+          >Back to top</a
+        >
+      </div>
+    </div>
+    <!--/container-->
+
+    <!-- jQuery -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+    ></script>
+
+    <!-- Scroll Spy -->
+    <script>
+      /* http://jsfiddle.net/LwLBx/ */
+
+      // Cache selectors
+      var lastId,
+        topMenu = $('#menu-content'),
+        topMenuHeight = topMenu.outerHeight() + 175,
+        // All list items
+        menuItems = topMenu.find('a'),
+        // Anchors corresponding to menu items
+        scrollItems = menuItems.map(function () {
+          var item = $($(this).attr('href'));
+          if (item.length) {
+            return item;
+          }
+        });
+
+      // Bind click handler to menu items
+      // so we can get a fancy scroll animation
+      menuItems.click(function (e) {
+        var href = $(this).attr('href'),
+          offsetTop =
+            href === '#' ? 0 : $(href).offset().top - topMenuHeight + 1;
+        $('html, body').stop().animate(
+          {
+            scrollTop: offsetTop,
+          },
+          300
+        );
+        if (!helpMenuDiv.classList.contains('hidden')) {
+          helpMenuDiv.classList.add('hidden');
+        }
+        e.preventDefault();
+      });
+
+      // Bind to scroll
+      $(window).scroll(function () {
+        // Get container scroll position
+        var fromTop = $(this).scrollTop() + topMenuHeight;
+
+        // Get id of current scroll item
+        var cur = scrollItems.map(function () {
+          if ($(this).offset().top < fromTop) return this;
+        });
+        // Get the id of the current element
+        cur = cur[cur.length - 1];
+        var id = cur && cur.length ? cur[0].id : '';
+
+        if (lastId !== id) {
+          lastId = id;
+          // Set/remove active class
+          menuItems
+            .parent()
+            .removeClass('font-bold border-purple-600')
+            .end()
+            .filter("[href='#" + id + "']")
+            .parent()
+            .addClass('font-bold border-purple-600');
+        }
+      });
+    </script>
+
+    <!-- Clipboard -->
+    <script>
+       const data = []
+       const copy = []
+
+         {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
+             copy['{{$hapeName}}_copy'] = document.getElementById('{{$hapeName}}-button')
+             data['{{$hapeName}}_data'] = document.getElementById('{{$hapeName}}-hape')
+
+       copy['{{$hapeName}}_copy'].onclick = () => {
+               const value = '```' + data['{{$hapeName}}_data'].textContent.trimEnd() + '\n```'
+               navigator.clipboard.writeText(value)
+             }
+          {{end}} {{end}}
+    </script>
+  </body>
+</html>
+{{end}}
