@@ -111,7 +111,19 @@ func headers(w http.ResponseWriter, req *http.Request) {
 
 func Log(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
+		ipAddress := r.RemoteAddr
+		fwdAddress := r.Header.Get("X-Forwarded-For")
+		if fwdAddress != "" {
+			// Got X-Forwarded-For
+			ipAddress = fwdAddress // If it's a single IP, then awesome!
+
+			// If we got an array... grab the first IP
+			ips := strings.Split(fwdAddress, ", ")
+			if len(ips) > 1 {
+				ipAddress = ips[0]
+			}
+		}
+		fmt.Printf("%s %s %s\n", ipAddress, r.Method, r.URL)
 		handler.ServeHTTP(w, r)
 	})
 }
