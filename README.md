@@ -41,9 +41,9 @@ hapettpsay is written in Go. It's a http server which serves up hapesays! It ext
 
 ## Usage
 
-Simply browse to https://www.hape-say.com/<Your message>
+Simply browse to `https://www.hape-say.com/<Your message>`
 
-If you want to use a specific hape, you can browse to https://www.hape-say.com/<hape name>/<Your message>
+If you want to use a specific hape, you can browse to `https://www.hape-say.com/<hape name>/<Your message>`
 
 ## Author
 hapettpsay: [Rid](https://github.com/Rid)
