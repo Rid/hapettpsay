@@ -1,5 +1,5 @@
 # hapettpsay
-hapettpsay is written in Go. It's a http server which serves up hapesays! It extends the hapesay library from (here)[https://github.com/Rid/hapesay]
+hapettpsay is written in Go. It's a http server which serves up hapesays! It extends the hapesay library from [here](https://github.com/Rid/hapesay)
 
 ```
                                                                   _____________ 
