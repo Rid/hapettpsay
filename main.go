@@ -51,7 +51,7 @@ func serveTemplate(w http.ResponseWriter, req *http.Request) {
 		say, err := hapesay.Say(
 			hape.say,
 			hapesay.Type(hape.typ),
-			hapesay.BallonWidth(40),
+			hapesay.BallonWidth(15),
 		)
 
 		if err != nil {
