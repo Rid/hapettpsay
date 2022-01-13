@@ -3,7 +3,7 @@
 <html lang="en" class="antialiased">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="icon" href="/static/img/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Hape Say! by @rid#2535</title>
@@ -90,16 +90,16 @@
           id="menu-content"
         >
           <ul class="list-reset py-2 md:py-0">
-			<li
-			class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent"
-		  >
-			<a
-			  href="#how"
-			  class="block pl-4 align-middle text-grey-700 no-underline hover:text-purple-600"
-			>
-			  <span class="pb-1 md:pb-0 text-sm">how to use</span>
-			</a>
-		  </li>
+            <li
+              class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent"
+            >
+              <a
+                href="#how"
+                class="block pl-4 align-middle text-grey-700 no-underline hover:text-purple-600"
+              >
+                <span class="pb-1 md:pb-0 text-sm">how to use</span>
+              </a>
+            </li>
             {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
             <li
               class="py-1 md:my-2 hover:bg-indigo-100 lg:hover:bg-transparent border-l-4 border-transparent{{if eq $i 0}} font-bold border-purple-600{{end}}"
@@ -146,25 +146,26 @@
           </p>
         </div>
 
-		<!--divider-->
+        <!--divider-->
         <hr class="bg-gray-300 my-12" />
 
-		<!--Title-->
+        <!--Title-->
         <h2
           class="font-sans font-bold break-normal text-indigo-700 px-2 pb-8 text-xl"
-		  id="how"
+          id="how"
         >
           How to use
         </h2>
 
-		<div class="px-2">
-			<p class="pb-2">
-			  Simply browse to https://www.hape-say.com/&lt;Your message&gt;
-			</p>
-			<p class="pb-2">
-			  If you want to use a specific hape, you can browse to https://www.hape-say.com/&lt;hape name&gt;/&lt;Your message&gt;
-			</p>
-		  </div>
+        <div class="px-2">
+          <p class="pb-2">
+            Simply browse to https://www.hape-say.com/&lt;Your message&gt;
+          </p>
+          <p class="pb-2">
+            If you want to use a specific hape, you can browse to
+            https://www.hape-say.com/&lt;hape name&gt;/&lt;Your message&gt;
+          </p>
+        </div>
 
         {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
         <!--divider-->
@@ -219,10 +220,10 @@
         <!--Card-->
         <div id="about" class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
           <p class="pb-4">
-            I created an ASCII art library written in golang for my fellow hapes, it's
-            called hapesay. You can make the hape say anything you want, and it has
-            some cool effects you can apply like rainbow hape, or super hape (it
-            has some crazy animation, check it out).
+            I created an ASCII art library written in golang for my fellow
+            hapes, it's called hapesay. You can make the hape say anything you
+            want, and it has some cool effects you can apply like rainbow hape,
+            or super hape (it has some crazy animation, check it out).
           </p>
           <p class="pb-4">
             You can try it yourself using Docker, over SSH, or from the binary
@@ -300,6 +301,45 @@
     </div>
     <!--/container-->
 
+    <!-- Toggle dropdown list -->
+    <script>
+      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+      var helpMenuDiv = document.getElementById('menu-content');
+      var helpMenu = document.getElementById('menu-toggle');
+
+      document.onclick = check;
+
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+        //Help Menu
+        if (!checkParent(target, helpMenuDiv)) {
+          // click NOT on the menu
+          if (checkParent(target, helpMenu)) {
+            // click on the link
+            if (helpMenuDiv.classList.contains('hidden')) {
+              helpMenuDiv.classList.remove('hidden');
+            } else {
+              helpMenuDiv.classList.add('hidden');
+            }
+          } else {
+            // click both outside link and outside menu, hide menu
+            helpMenuDiv.classList.add('hidden');
+          }
+        }
+      }
+
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+
     <!-- jQuery -->
     <script
       type="text/javascript"
@@ -371,18 +411,18 @@
 
     <!-- Clipboard -->
     <script>
-       const data = []
-       const copy = []
+      const data = []
+      const copy = []
 
-         {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
-             copy['{{$hapeName}}_copy'] = document.getElementById('{{$hapeName}}-button')
-             data['{{$hapeName}}_data'] = document.getElementById('{{$hapeName}}-hape')
+        {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
+            copy['{{$hapeName}}_copy'] = document.getElementById('{{$hapeName}}-button')
+            data['{{$hapeName}}_data'] = document.getElementById('{{$hapeName}}-hape')
 
-       copy['{{$hapeName}}_copy'].onclick = () => {
-               const value = '```' + data['{{$hapeName}}_data'].textContent.trimEnd() + '\n```'
-               navigator.clipboard.writeText(value)
-             }
-          {{end}} {{end}}
+      copy['{{$hapeName}}_copy'].onclick = () => {
+              const value = '```' + data['{{$hapeName}}_data'].textContent.trimEnd() + '\n```'
+              navigator.clipboard.writeText(value)
+            }
+         {{end}} {{end}}
     </script>
   </body>
 </html>
