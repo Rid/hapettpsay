@@ -19,7 +19,9 @@ type Hapesay struct {
 }
 
 type htmlVars struct {
-	Hapes map[int]map[string]string
+	Hapes    map[int]map[string]string
+	AllHapes map[int]string
+	Selected string
 }
 
 func hapeList() []string {
@@ -35,7 +37,7 @@ func hapeList() []string {
 }
 
 func serveTemplate(w http.ResponseWriter, req *http.Request) {
-	html := &htmlVars{Hapes: make(map[int]map[string]string, 0)}
+	html := &htmlVars{Hapes: make(map[int]map[string]string, 0), AllHapes: make(map[int]string, 0)}
 	lp := filepath.Join("templates", "layout.html")
 
 	hapes := hapeList()
@@ -64,6 +66,14 @@ func serveTemplate(w http.ResponseWriter, req *http.Request) {
 		}
 
 		html.Hapes[0] = map[string]string{hape.typ: say}
+
+		counter := 0
+		for _, hapeFile := range hapes {
+			html.AllHapes[counter] = hapeFile
+			counter++
+		}
+
+		html.Selected = hape.typ
 	} else {
 		if route[1] == "" {
 			hape.say = "You can make me say anything, just type it in the url"
@@ -77,6 +87,7 @@ func serveTemplate(w http.ResponseWriter, req *http.Request) {
 			hapesay.BallonWidth(15),
 		)
 		html.Hapes[0] = map[string]string{"mobile": say}
+		html.AllHapes[0] = "mobile"
 
 		counter := 1
 		for _, hapeFile := range hapes {
@@ -89,6 +100,7 @@ func serveTemplate(w http.ResponseWriter, req *http.Request) {
 				hapesay.BallonWidth(15),
 			)
 
+			html.AllHapes[counter] = hapeFile
 			html.Hapes[counter] = map[string]string{hapeFile: say}
 			counter++
 		}

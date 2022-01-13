@@ -1,4 +1,5 @@
 {{define "layout"}}
+{{ $selected := .Selected }}
 <!DOCTYPE html>
 <html lang="en" class="antialiased">
   <head>
@@ -185,9 +186,10 @@
                   class="form-input block w-full focus:bg-white"
                   type="text"
                   value=""
+                  onkeypress="handleEnter(event)"
                 />
                 <p class="py-2 text-sm text-gray-600">
-                  Type the text here and the hapes will say it below!
+                  Type the text here and press <strong>Enter</strong>, the hapes will say it below!
                 </p>
               </div>
             </div>
@@ -208,9 +210,16 @@
                   id="hape-select"
                 >
                   <option value="all">All</option>
-                  {{range $i, $a := .Hapes}} {{range $hapeName, $hapeSay := $a}}
-                  <option value="{{$hapeName}}">{{$hapeName}}</option>
-                  {{end}}{{end}}
+                  {{range $hapeName := .AllHapes}}
+                  {{ if $selected }}
+                    {{ if eq $selected $hapeName }}
+                      <option value="{{$hapeName}}" selected>{{$hapeName}}</option>
+                      {{else}}
+                      <option value="{{$hapeName}}" >{{$hapeName}}</option>
+                      {{end}}
+                    {{else}}
+                    <option value="{{$hapeName}}" >{{$hapeName}}</option>
+                    {{end}}{{end}}
                 </select>
 
                 <p class="py-2 text-sm text-gray-600">
@@ -272,7 +281,7 @@
             </div>
           </form>
           <p class="py-2 text-sm text-gray-600">
-            Once you've clicked the button simply paste into Discord (Windows: Ctl + V, Mac OS: Cmd + V) and press Enter.
+            Once you <strong>click the button</strong> simply paste into <strong>Discord</strong> (Windows: <strong>Ctl + V</strong>, Mac OS: <strong>Cmd + V</strong>) and press <strong>Enter</strong>.
           </p>
         </div>
         <!--/Card-->
@@ -379,12 +388,24 @@
       hapeName = document.getElementById('hape-select');
 
       urlButton.onclick = () => {
+        changeURL();
+      };
+
+      function handleEnter(e) {
+        if(e.keyCode === 13){
+            e.preventDefault(); // Ensure it is only this code that runs
+
+            changeURL();
+        }
+      }
+
+      changeURL = () => {
         if (hapeName.value == 'all') {
           window.document.location.href = `${window.location.origin}/${encodeURIComponent(urlField.value)}`;
         } else {
           window.document.location.href = `${window.location.origin}/${encodeURIComponent(hapeName.value + "/" + urlField.value)}`;
         }
-      };
+      }
     </script>
 
     <!-- Toggle dropdown list -->
@@ -505,7 +526,7 @@
             data['{{$hapeName}}_data'] = document.getElementById('{{$hapeName}}-hape')
 
       copy['{{$hapeName}}_copy'].onclick = () => {
-              const value = '```' + data['{{$hapeName}}_data'].textContent.trimEnd() + '\n```'
+              const value = '```swift' + data['{{$hapeName}}_data'].textContent.trimEnd() + '\n```'
               navigator.clipboard.writeText(value)
             }
          {{end}} {{end}}
