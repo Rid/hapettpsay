@@ -76,7 +76,7 @@ func serveTemplate(w http.ResponseWriter, req *http.Request) {
 		html.Selected = hape.typ
 	} else {
 		if route[1] == "" {
-			hape.say = "You can make me say anything, just type it in the url"
+			hape.say = "You can make me say anything, just type it in the 'Text to say' field above and press enter!"
 		} else {
 			hape.say = route[1]
 		}
