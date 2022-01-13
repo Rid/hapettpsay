@@ -33,7 +33,11 @@
     </style>
   </head>
 
-  <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
+  {{ if ne $selected "" }}
+    <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal" onload="copyToClip();">
+    {{else}}
+    <body class="bg-gray-100 text-gray-900 tracking-wider leading-normal">
+    {{end}}
     <nav id="header" class="bg-white fixed w-full z-10 top-0 shadow">
       <div
         class="w-full container mx-auto flex flex-wrap items-center justify-between my-4"
@@ -530,7 +534,13 @@
               navigator.clipboard.writeText(value)
             }
          {{end}} {{end}}
-    </script>
+
+         copyToClip = () => {
+            const value = '```swift' + data['{{$selected}}_data'].textContent.trimEnd() + '\n```'
+            navigator.clipboard.writeText(value)
+         }
+
+    </script>    
   </body>
 </html>
 {{end}}
